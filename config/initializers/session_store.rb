@@ -5,7 +5,7 @@
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
-  :key         => '_couchdb_session',
+  :key         => '_fake_couchdb_session',
   :secret      => '8cc74be3f23f6aa9d5f818dd4e0a0c7136bfd448ad900ada4c20c5a7717b7a5018990e3adfae508d798eb37133b2043bf307706907d21a1c63632b9ea80b6b34'
 }
 
