@@ -7,8 +7,8 @@ ActionController::Routing::Routes.draw do |map|
       databases.connect '/:name',    :action => 'show',    :conditions => { :method => :get }
     end
 
-    json.with_options(:controller => 'designs') do |designs|
-      designs.connect '/:database_name/_design/:name', :action => 'create', :conditions => { :method => :put }
+    json.with_options(:controller => 'documents') do |documents|
+      documents.controller '/:database_name/:name', :action => 'show', :conditions => { :method => :get }
     end
   end
 end

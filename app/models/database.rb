@@ -1,4 +1,6 @@
 class Database < ActiveRecord::Base
+  has_many :documents
+
   validates_format_of :name, :with => %r{^[a-z0-9_$()+-/]+$}
   validates_uniqueness_of :name
 

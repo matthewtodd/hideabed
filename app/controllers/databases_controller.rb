@@ -1,6 +1,7 @@
 class DatabasesController < ApplicationController
   def index
-    render :json => Database.all.map(&:name)
+    @databases = Database.all
+    render :json => @databases.map(&:name)
   end
 
   def create
@@ -12,14 +13,14 @@ class DatabasesController < ApplicationController
     end
   end
 
+  def show
+    @database = Database.find_by_name!(params[:name])
+    render :json => @database
+  end
+
   def destroy
     @database = Database.find_by_name!(params[:name])
     @database.destroy
     render :json => { 'ok' => true }
-  end
-
-  def show
-    @database = Database.find_by_name!(params[:name])
-    render :json => @database
   end
 end

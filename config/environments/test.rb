@@ -21,5 +21,6 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
 # Specify gems that this application depends on and have them installed with rake gems:install
+config.gem 'faker'
 config.gem 'notahat-machinist',  :lib => 'machinist',     :source => 'http://gems.github.com/'
 config.gem 'thoughtbot-shoulda', :lib => 'shoulda/rails', :source => 'http://gems.github.com/'

@@ -1,5 +1,8 @@
-Sham.database_name { |i| "database#{i}"}
+Sham.name { Faker.bothify('?###?###?###?###')}
 
 Database.blueprint do
-  name { Sham.database_name }
+  name
+end
+
+Document.blueprint do
 end

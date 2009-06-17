@@ -1,6 +1,11 @@
-Given /^these (.+)$/ do |model, table|
+Given /^these databases$/ do |table|
+  table.hashes.each { |hash| Database.make(hash) }
+end
+
+Given /^these documents$/ do |table|
   table.hashes.each do |hash|
-    model.classify.constantize.make(hash)
+    database = Database.find_by_name!(hash.delete('database'))
+    database.documents.make(hash)
   end
 end
 
@@ -13,5 +18,5 @@ Then /^I should see status (\d+.*)$/ do |status|
 end
 
 Then /^I should see json '(.*)'$/ do |json|
-  response.body.should == json
+  ActiveSupport::JSON.decode(response.body).should == ActiveSupport::JSON.decode(json)
 end

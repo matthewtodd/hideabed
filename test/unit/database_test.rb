@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class DatabaseTest < ActiveSupport::TestCase
+  should_have_many :documents
+
   should_allow_values_for     :name, 'lowercase'
   should_not_allow_values_for :name, 'UPPERCASE'
 
