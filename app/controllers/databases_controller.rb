@@ -11,15 +11,15 @@ class DatabasesController < ApplicationController
       render :json => @database.errors, :status => :precondition_failed
     end
   end
-  
+
   def destroy
     @database = Database.find_by_name!(params[:name])
     @database.destroy
     render :json => { 'ok' => true }
   end
-  
+
   def show
     @database = Database.find_by_name!(params[:name])
-    render :json => @database    
+    render :json => @database
   end
 end
