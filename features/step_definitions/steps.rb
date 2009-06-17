@@ -4,7 +4,7 @@ Given /^these (.+)$/ do |model, table|
   end
 end
 
-When /^I (get|put) (\S+)(.+)?$/ do |method, path, data|
+When /^I (get|put|delete) (\S+)(.+)?$/ do |method, path, data|
   visit path, method, data
 end
 
