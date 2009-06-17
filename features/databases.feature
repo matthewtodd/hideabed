@@ -9,5 +9,13 @@ Feature: Databases
       |foo |
 
   Scenario: Listing Databases
-    When I go to /_all_dbs
+    When I get /_all_dbs
     Then I should see json '["foo"]'
+
+  Scenario: Creating Databases
+    When I put /bar
+    And I get /_all_dbs
+    Then I should see json '["foo", "bar"]'
+
+  Scenario: Creating Designs
+    When I put /foo/_design/widget {}

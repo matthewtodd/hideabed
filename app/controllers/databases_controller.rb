@@ -1,8 +1,12 @@
 class DatabasesController < ApplicationController
   def index
-    @databases = Database.all
-    respond_to do |format|
-      format.json { render :json => @databases.map(&:name) }
+    render :json => Database.all.map(&:name)
+  end
+
+  def create
+    @database = Database.new(:name => params[:name])
+    if @database.save
+      render :json => {}
     end
   end
 end
