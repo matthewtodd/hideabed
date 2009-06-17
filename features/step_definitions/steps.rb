@@ -8,6 +8,10 @@ When /^I (get|put) (\S+)(.+)?$/ do |method, path, data|
   visit path, method, data
 end
 
+Then /^I should see status (\d+.*)$/ do |status|
+  response.status.should == status
+end
+
 Then /^I should see json '(.*)'$/ do |json|
   response.body.should == json
 end

@@ -6,7 +6,9 @@ class DatabasesController < ApplicationController
   def create
     @database = Database.new(:name => params[:name])
     if @database.save
-      render :json => {}
+      render :json => { 'ok' => true }, :status => :created
+    else
+      render :json => @database.errors, :status => :precondition_failed
     end
   end
 end
