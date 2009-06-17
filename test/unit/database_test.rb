@@ -5,7 +5,7 @@ class DatabaseTest < ActiveSupport::TestCase
   should_not_allow_values_for :name, 'UPPERCASE'
 
   context 'with an existing Database' do
-    setup { Database.create(:name => 'foo') }
+    setup { Database.make }
     should_validate_uniqueness_of :name
   end
 end

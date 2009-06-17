@@ -1,6 +1,6 @@
 Given /^these (.+)$/ do |model, table|
   table.hashes.each do |hash|
-    model.classify.constantize.create!(hash)
+    model.classify.constantize.make(hash)
   end
 end
 
