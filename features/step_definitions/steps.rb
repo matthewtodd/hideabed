@@ -4,12 +4,13 @@ end
 
 Given /^these documents$/ do |table|
   table.hashes.each do |hash|
-    database = Database.find_by_name!(hash.delete('database'))
-    database.documents.make(hash)
+    database = Database.find_by_name!(hash['database'])
+    database.documents.make(hash.except('database'))
   end
 end
 
 When /^I (get|put|delete) (\S+)(.+)?$/ do |method, path, data|
+  header 'Content-Type', 'application/json'
   visit path, method, data
 end
 

@@ -8,7 +8,8 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     json.with_options(:controller => 'documents') do |documents|
-      documents.controller '/:database_name/:name', :action => 'show', :conditions => { :method => :get }
+      documents.controller '/:database_name/:name', :action => 'show',   :conditions => { :method => :get }
+      documents.controller '/:database_name/:name', :action => 'create', :conditions => { :method => :put }
     end
   end
 end
