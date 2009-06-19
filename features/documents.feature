@@ -8,8 +8,8 @@ Feature: Documents
       | name |
       | foo  |
     And these documents
-      | database | name | revision | data               |
-      | foo      | bar  | 12345    | { "Key": "Value" } |
+      | database | name | revision | data                 |
+      | foo      | bar  | 12345    | { "Key" => "Value" } |
 
   Scenario: Showing a Document
     When I get /foo/bar
@@ -23,4 +23,4 @@ Feature: Documents
   Scenario: Creating a named Document
     When I put /foo/fred { "Name":"Flintstone" }
     Then I should see status 201 Created
-    And  I should see json '{"ok":true, "id":"fred"}'
+    And  I should see json like '{"ok":true, "id":"fred", "rev":"xxxxxxxxxxxxxxxx"}'

@@ -5,8 +5,8 @@ Feature: Databases
 
   Background:
     Given these databases
-      |name|
-      |foo |
+      | name |
+      | foo  |
 
   Scenario: Listing Databases
     When I get /_all_dbs
