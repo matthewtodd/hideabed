@@ -15,7 +15,7 @@ Feature: Views
 
   Scenario: Showing a View
     When I get /petstore/_design/dogs/_view/all_name
-    Then I should see json '{"total_rows":1, "offset":0, "rows":{"id":"ab12cd34", "key":"rover", "value":{"type":"dog", "name":"rover"}}}'
+    Then I should see json '{"total_rows":1, "offset":0, "rows":[{"id":"ab12cd34", "key":"rover", "value":{"type":"dog", "name":"rover"}}]}'
 
   Scenario: Showing a non-existent View
 
