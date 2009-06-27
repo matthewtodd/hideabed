@@ -7,21 +7,21 @@ module View
   private
 
   class Mapper
-    def initialize(function_string)
-      @function = Doily(function_string).delegate(self)
+    def initialize(function)
+      @function = Doily(function)
     end
 
-    def map(records)
-      @results = []
-      records.each do |record|
-        @current_record = record
-        @function.call(record)
+    def map(documents)
+      @rows = []
+      documents.each do |document|
+        @current_document = document
+        @function.delegate(self).call(document.data)
       end
-      @results
+      @rows
     end
 
     def emit(key, value)
-      @results << { :id => @current_record.name, :key => key, :value => value }
+      @rows.push(:id => @current_document.name, :key => key, :value => value)
     end
   end
 end
