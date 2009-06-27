@@ -1,15 +1,27 @@
 module View
   def view(functions)
-    reduce_javascript(functions['reduce'], map_javascript(functions['map'], all))
+    rows = Mapper.new(functions['map']).map(all)
+    { :total_rows => rows.size, :offset => 0, :rows => rows }
   end
 
   private
 
-  def map_javascript(function, records)
-    records
-  end
+  class Mapper
+    def initialize(function_string)
+      @function = Doily(function_string).delegate(self)
+    end
 
-  def reduce_javascript(function, rows)
-    { :total_rows => rows.size, :offset => 0, :rows => rows }
+    def map(records)
+      @results = []
+      records.each do |record|
+        @current_record = record
+        @function.call(record)
+      end
+      @results
+    end
+
+    def emit(key, value)
+      @results << { :id => @current_record.name, :key => key, :value => value }
+    end
   end
 end
