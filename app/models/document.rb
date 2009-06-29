@@ -1,10 +1,7 @@
 class Document < ActiveRecord::Base
-  before_save :update_revision, :unless => :revision_changed? # the unless clause allows setting up a revision in a test
-  serialize   :data
-
-  def to_json(options={})
-    data.merge(:_id => name, :_rev => revision).to_json(options)
-  end
+  before_save :update_revision
+  serialize :data
+  validates_confirmation_of :revision, :on => :update
 
   def views
     data.fetch('views').tap do |views|
@@ -13,9 +10,13 @@ class Document < ActiveRecord::Base
     end
   end
 
+  def to_json(options={})
+    data.merge(:_id => name, :_rev => revision).to_json(options)
+  end
+
   private
 
   def update_revision
-    self.revision = ActiveSupport::SecureRandom.hex(16)
+    self.revision = ActiveSupport::SecureRandom.hex(16) unless revision_changed?
   end
 end

@@ -16,10 +16,6 @@ Feature: Documents
     Then I should see status 200 OK
     And  I should see json '{"_id":"bar", "_rev":"12345", "Key":"Value"}'
 
-  Scenario: Showing a revision of a Document
-
-  Scenario: Showing all revisions of a Document
-
   Scenario: Creating a named Document
     When I put /foo/fred { "Name":"Flintstone" }
     Then I should see status 201 Created
@@ -29,3 +25,16 @@ Feature: Documents
     When I put /foo/_design/barney { "views":{} }
     Then I should see status 201 Created
     And  I should see json like '{"ok":true, "id":"_design/barney", "rev":"xxxxxxxxxxxxxxxx"}'
+
+  Scenario: Updating a Document
+    When I put /foo/bar { "Key":"New Value", "_rev":"12345" }
+    Then I should see status 201 Created
+    And  I should see json like '{"ok":true, "id":"bar", "rev":"xxxxxxxxxxxxxxxx"}'
+
+  Scenario: Updating a Document with an outdated Revision
+    When I put /foo/bar { "Key":"New Value", "_rev":"1" }
+    Then I should see status 409 Conflict
+    And  I should see json '{"error":"conflict", "reason":"Document update conflict."}'
+
+
+

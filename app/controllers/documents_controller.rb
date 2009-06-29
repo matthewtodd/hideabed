@@ -1,17 +1,18 @@
 class DocumentsController < ApplicationController
   before_filter :load_database
-
-  def create
-    @document = @database.documents.build(:name => document_name, :data => request.request_parameters)
-    if @document.save
-      render :json => { :ok => true, :id => @document.name, :rev => @document.revision }, :status => :created
-    else
-    end
-  end
+  before_filter :load_document,          :only => :show
+  before_filter :load_or_build_document, :only => :update
 
   def show
-    @document = @database.documents.find_by_name!(document_name)
     render :json => @document
+  end
+
+  def update
+    if @document.update_attributes(:revision_confirmation => params[:_rev] || 'unspecified', :data => request.request_parameters.except(:_id, :_rev))
+      render :json => { :ok => true, :id => @document.name, :rev => @document.revision }, :status => :created
+    else
+      render :json => { :error => 'conflict', :reason => 'Document update conflict.' }, :status => :conflict
+    end
   end
 
   private
@@ -20,7 +21,25 @@ class DocumentsController < ApplicationController
     @database = Database.find_by_name!(params[:database_name])
   end
 
+  def build_document
+    @document = @database.documents.build(:name => document_name, :data => document_data)
+  end
+
+  def load_document
+    @document = @database.documents.find_by_name!(document_name)
+  end
+
+  def load_or_build_document
+    load_document
+  rescue ActiveRecord::RecordNotFound
+    build_document
+  end
+
   def document_name
     params[:name]
+  end
+
+  def document_data
+    request.request_parameters.except(:_id, :_rev)
   end
 end

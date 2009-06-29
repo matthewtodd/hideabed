@@ -13,11 +13,11 @@ ActionController::Routing::Routes.draw do |map|
 
     json.with_options(:controller => 'documents') do |documents|
       documents.controller '/:database_name/:name', :action => 'show',   :conditions => { :method => :get }
-      documents.controller '/:database_name/:name', :action => 'create', :conditions => { :method => :put }
+      documents.controller '/:database_name/:name', :action => 'update', :conditions => { :method => :put }
     end
 
     json.with_options(:controller => 'designs') do |documents|
-      documents.controller '/:database_name/_design/:name', :action => 'create', :conditions => { :method => :put }
+      documents.controller '/:database_name/_design/:name', :action => 'update', :conditions => { :method => :put }
     end
 
     json.with_options(:controller => 'views') do |documents|
