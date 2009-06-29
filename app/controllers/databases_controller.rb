@@ -9,7 +9,7 @@ class DatabasesController < ApplicationController
     if @database.save
       render :json => { 'ok' => true }, :status => :created
     else
-      render :json => @database.errors, :status => :precondition_failed
+      render :json => {}, :status => :precondition_failed
     end
   end
 

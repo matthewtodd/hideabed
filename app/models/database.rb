@@ -11,6 +11,6 @@ class Database < ActiveRecord::Base
   end
 
   def to_json
-    { :db_name => name }.to_json
+    JSON[:db_name => name]
   end
 end

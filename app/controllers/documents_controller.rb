@@ -8,7 +8,7 @@ class DocumentsController < ApplicationController
   end
 
   def update
-    if @document.update_attributes(:revision_confirmation => params[:_rev] || 'unspecified', :data => request.request_parameters.except(:_id, :_rev))
+    if @document.update_attributes(:revision_confirmation => params[:json][:_rev] || 'unspecified', :data => document_data)
       render :json => { :ok => true, :id => @document.name, :rev => @document.revision }, :status => :created
     else
       render :json => { :error => 'conflict', :reason => 'Document update conflict.' }, :status => :conflict
@@ -40,6 +40,6 @@ class DocumentsController < ApplicationController
   end
 
   def document_data
-    request.request_parameters.except(:_id, :_rev)
+    params[:json].except(:_id, :_rev)
   end
 end
