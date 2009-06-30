@@ -3,12 +3,10 @@ Given /^these databases$/ do |table|
 end
 
 Given /^these documents$/ do |table|
-  table.hashes.each do |hash|
-    database = Database.find_by_name!(hash['database'])
-
-    attributes = hash.except('database')
-    attributes['data'] = eval(attributes['data'])
-    database.documents.make(attributes)
+  table.map_column!('data') { |data| eval(data) }
+  table.hashes.each do |attributes|
+    database = Database.find_by_name!(attributes['database'])
+    database.documents.make(attributes.except('database'))
   end
 end
 
