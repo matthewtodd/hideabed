@@ -28,6 +28,6 @@ Rails::Initializer.run do |config|
   }
 
   config.after_initialize do
-    Kernel.const_set('HIDEABED_API_KEY', environment_variable(:hideabed_api_key)
+    Kernel.const_set('HIDEABED_API_KEY', environment_variable(:hideabed_api_key))
   end
 end
