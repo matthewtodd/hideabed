@@ -8,9 +8,20 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 
+  before_filter :ssl_required, :unless => :development?
   before_filter :authentication_required
 
   private
+
+  def development?
+    Rails.env.development?
+  end
+
+  def ssl_required
+    unless request.ssl?
+      render :json => '{"error":"SSL is required."}', :status => :bad_request
+    end
+  end
 
   def authentication_required
     authenticate_or_request_with_http_basic do |username, password|
