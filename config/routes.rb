@@ -12,8 +12,9 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     json.with_options(:controller => 'documents') do |documents|
-      documents.controller '/:database_name/:name', :action => 'show',   :conditions => { :method => :get }
-      documents.controller '/:database_name/:name', :action => 'update', :conditions => { :method => :put }
+      documents.controller '/:database_name/:name', :action => 'show',    :conditions => { :method => :get }
+      documents.controller '/:database_name/:name', :action => 'update',  :conditions => { :method => :put }
+      documents.controller '/:database_name/:name', :action => 'destroy', :conditions => { :method => :delete }
     end
 
     json.with_options(:controller => 'designs') do |documents|

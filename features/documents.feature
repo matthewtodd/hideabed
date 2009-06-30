@@ -40,3 +40,13 @@ Feature: Documents
     When I put /foo/bar { "Key":"New Value", "_rev":"1" }
     Then I should see status 409 Conflict
     And  I should see json '{"error":"conflict", "reason":"Document update conflict."}'
+
+  Scenario: Deleting a Document
+    When I delete /foo/bar?rev=12345
+    Then I should see status 200 OK
+    And  I should see json like '{"ok":true, "rev":"xxxxxxxxxxxxxxxx"}'
+
+  Scenario: Deleting a Document with an outdated Revision
+    When I delete /foo/bar?rev=1
+    Then I should see status 409 Conflict
+    And  I should see json '{"error":"conflict", "reason":"Document update conflict."}'

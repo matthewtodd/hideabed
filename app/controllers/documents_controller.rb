@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
   before_filter :load_database
-  before_filter :load_document,          :only => :show
-  before_filter :load_or_build_document, :only => :update
+  before_filter :load_document,          :only => [:show, :destroy]
+  before_filter :load_or_build_document, :only => [:update]
 
   def show
     render :json => @document
@@ -10,6 +10,15 @@ class DocumentsController < ApplicationController
   def update
     if @document.update_attributes(:revision_confirmation => params[:json][:_rev] || 'unspecified', :data => document_data)
       render :json => { :ok => true, :id => @document.name, :rev => @document.revision }, :status => :created
+    else
+      render :json => { :error => 'conflict', :reason => 'Document update conflict.' }, :status => :conflict
+    end
+  end
+
+  def destroy
+    if @document.revision == params[:rev]
+      @document.destroy
+      render :json => { :ok => true, :rev => ActiveSupport::SecureRandom.hex(16) }
     else
       render :json => { :error => 'conflict', :reason => 'Document update conflict.' }, :status => :conflict
     end
