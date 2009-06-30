@@ -6,6 +6,6 @@ ActionController::Base.param_parsers[Mime::JSON] = Proc.new do |raw|
   if raw.blank?
     { :json => {} }
   else
-    { :json => JSON[raw].with_indifferent_access }
+    { :json => Doily(raw).with_indifferent_access }
   end
 end

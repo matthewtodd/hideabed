@@ -10,7 +10,7 @@ class Database < ActiveRecord::Base
     documents.view(view)
   end
 
-  def to_json
-    JSON[:db_name => name]
+  def to_json(options={})
+    { :db_name => name }.to_json(options)
   end
 end

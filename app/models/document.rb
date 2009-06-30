@@ -11,7 +11,7 @@ class Document < ActiveRecord::Base
   end
 
   def to_json(options={})
-    JSON[data.merge(:_id => name, :_rev => revision)]
+    data.merge(:_id => name, :_rev => revision).to_json(options)
   end
 
   private

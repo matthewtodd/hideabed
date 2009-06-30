@@ -4,7 +4,6 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem 'json'
   config.gem 'matthewtodd-doily', :lib => 'doily', :source => 'http://gems.github.com'
 
   # Skip frameworks you're not going to use. To use Rails without a database,

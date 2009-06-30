@@ -21,6 +21,11 @@ Feature: Documents
     Then I should see status 201 Created
     And  I should see json like '{"ok":true, "id":"fred", "rev":"xxxxxxxxxxxxxxxx"}'
 
+  Scenario: Creating a named Document with a json_class attribute
+    When I put /foo/widget { "json_class":"Widget" }
+    Then I should see status 201 Created
+    And  I should see json like '{"ok":true, "id":"widget", "rev":"xxxxxxxxxxxxxxxx"}'
+
   Scenario: Creating a design Document
     When I put /foo/_design/barney { "views":{} }
     Then I should see status 201 Created
@@ -35,6 +40,3 @@ Feature: Documents
     When I put /foo/bar { "Key":"New Value", "_rev":"1" }
     Then I should see status 409 Conflict
     And  I should see json '{"error":"conflict", "reason":"Document update conflict."}'
-
-
-
