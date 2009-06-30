@@ -13,6 +13,7 @@ Given /^these documents$/ do |table|
 end
 
 When /^I (get|put|delete) (\S+)(.+)?$/ do |method, path, data|
+  header 'Authorization', ActionController::HttpAuthentication::Basic.encode_credentials(HIDEABED_API_KEY, 'X')
   header 'Content-Type', 'application/json'
   visit path, method, data
 end

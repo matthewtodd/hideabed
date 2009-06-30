@@ -7,4 +7,14 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+
+  before_filter :authentication_required
+
+  private
+
+  def authentication_required
+    authenticate_or_request_with_http_basic do |username, password|
+      username == HIDEABED_API_KEY
+    end
+  end
 end

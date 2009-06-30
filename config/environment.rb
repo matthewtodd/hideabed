@@ -13,4 +13,8 @@ Rails::Initializer.run do |config|
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.
   config.time_zone = 'UTC'
+
+  config.after_initialize do
+    Kernel.const_set('HIDEABED_API_KEY', ENV['HIDEABED_API_KEY'] || 'development_hideabed_api_key')
+  end
 end
