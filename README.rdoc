@@ -1,3 +1,16 @@
+= Hideabed
+
+Barely enough CouchDB.
+
+== Rationale
+
+Say you'd like to run chef-server on a host that doesn't support Erlang. What do you do?
+
+== The Cool Part
+
+http://github.com/matthewtodd/doily
+
 == Alternatives
 
 * http://hosting.couch.io/
+* others?
