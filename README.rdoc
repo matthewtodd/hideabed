@@ -10,7 +10,36 @@ Say you'd like to run chef-server on a host that doesn't support Erlang. What do
 
 http://github.com/matthewtodd/doily
 
+== The Obvious Part
+
+Of course, mimicking CouchDB with a Rails app disregards pretty much every huge scaling problem CouchDB was designed to solve. So, this project is merely a stopgap measure for me and not any attempt to try to be awesome. Well, maybe just a little awesome.
+
 == Alternatives
 
 * http://hosting.couch.io/
 * others?
+
+== Use it!
+
+I happen to be deploying to Heroku. Here's how you would do that:
+
+ git clone git://github.com/matthewtodd/hideabed.git
+ cd hideabed
+ heroku create
+ heroku config:add HIDEABED_API_KEY=...
+ heroku config:add HIDEABED_SESSION_SECRET=...
+ heroku addons:add piggyback_ssl
+ git push heroku master
+ heroku rake db:migrate
+
+And then, assuming your HIDEABED_API_KEY is "bob" and your app is prancing-igloo-37, you'd do something like this to test:
+
+ curl https://bob:X@prancing-igloo-37.heroku.com/
+
+If you happen to see "curl: (1) Protocol https not supported or disabled in libcurl", then perhaps you got curl by installing git-core via MacPorts. Not to worry:
+
+ sudo port install curl +ssl
+
+== Contribute
+
+Like I say, *barely* enough CouchDB. (Check out the Cucumber features for all that the code actually promises to do.) So, if you'd like to take this somewhere, feel free!
