@@ -16,7 +16,7 @@ Of course, mimicking CouchDB with a Rails app disregards pretty much every huge 
 
 == Alternatives
 
-* http://hosting.couch.io/
+* http://hosting.couch.io
 * others?
 
 == Use it!
